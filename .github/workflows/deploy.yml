@@ -1,23 +1,14 @@
-name: Build and deploy to GitHub Pages
+name: Example Workflow for Environment Files
 
-on:
-  push:
-    branches: [main]
+on: push
 
 jobs:
-  build-and-deploy:
+  set_and_use_env_vars:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+      - name: Set environment variable
+        run: echo "MY_ENV_VAR=myValue" >> $GITHUB_ENV
 
-      - name: Install and build 🔧
+      - name: Use environment variable
         run: |
-          npm install
-          npm run build
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.0
-        with:
-          branch: gh-pages
-          folder: dist
+          echo "The value of MY_ENV_VAR is $MY_ENV_VAR"
